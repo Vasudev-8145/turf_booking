@@ -1,0 +1,55 @@
+
+# api call for admin registration
+###
+POST http://127.0.0.1:8000/turf/admin-register/
+Content-Type: application/json
+
+{
+    "username":"adminuser",
+    "email":"adminuser@gmail.com",
+    "password":"admin123"
+}
+
+# api call for listing turf details
+###
+GET http://127.0.0.1:8000/turf/
+Accept: application/json
+Authorization: Basic adminuser:admin123
+
+# api call for creating turf details
+###
+POST  http://127.0.0.1:8000/turf/
+Content-Type: application/json
+Authorization: Basic adminuser:admin123
+
+{
+    "name":"game on",
+    "location":"palakkad",
+    "phone":"147258369",
+    "fee":1000
+}
+
+# api call for listing one turf details
+###
+GET http://127.0.0.1:8000/turf/1/
+Accept: application/json
+Authorization: Basic adminuser:admin123
+
+# api call for updating turf details
+###
+POST  http://127.0.0.1:8000/turf/3/
+Content-Type: application/json
+Authorization: Basic adminuser:admin123
+
+{
+    "name":"rosario",
+    "location":"malappuram",
+    "phone":"147258369",
+    "fee":1000
+}
+
+# api call for deleting one turf details
+###
+DELETE  http://127.0.0.1:8000/turf/4/
+Accept: application/json
+Authorization: Basic adminuser:admin123
