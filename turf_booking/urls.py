@@ -17,11 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from turf.views import TurfListCreateView,AdminCreateView,TurfRetreiveUpdateDeleteView
+from slot.views import BookingListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+    # turf endpoint
     path("turf/",TurfListCreateView.as_view()),
     path("turf/admin-register/",AdminCreateView.as_view()),
     path("turf/<int:pk>/",TurfRetreiveUpdateDeleteView.as_view()),
+
+    # slot endpoints
+    path("bookings/",BookingListCreateView.as_view()),
 ]

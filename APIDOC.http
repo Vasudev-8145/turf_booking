@@ -53,3 +53,11 @@ Authorization: Basic adminuser:admin123
 DELETE  http://127.0.0.1:8000/turf/4/
 Accept: application/json
 Authorization: Basic adminuser:admin123
+
+# ==========Booking================
+
+# api call for listing booking details
+###
+GET http://127.0.0.1:8000/bookings/
+Accept: application/json
+
