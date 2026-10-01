@@ -61,3 +61,21 @@ Authorization: Basic adminuser:admin123
 GET http://127.0.0.1:8000/bookings/
 Accept: application/json
 
+# api call for creating booking details
+###
+POST http://127.0.0.1:8000/bookings/
+Content-Type: application/json
+
+{
+    "team_name":"inter milan",
+    "phone":123456789,
+    "turf":1,
+    "booking_date":"2026-10-2",
+    "booking_time":"8:00:00",
+    "duration":"1:00:00"
+}
+
+# api call for listing one booking details
+###
+GET http://127.0.0.1:8000/bookings/1/
+Accept: application/json

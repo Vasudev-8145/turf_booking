@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from turf.views import TurfListCreateView,AdminCreateView,TurfRetreiveUpdateDeleteView
-from slot.views import BookingListCreateView
+from slot.views import BookingListCreateView,BookingRetrieveUpdateDeleteView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -29,4 +29,5 @@ urlpatterns = [
 
     # slot endpoints
     path("bookings/",BookingListCreateView.as_view()),
+    path("bookings/<int:pk>/",BookingRetrieveUpdateDeleteView.as_view()),
 ]

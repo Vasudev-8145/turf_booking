@@ -15,10 +15,7 @@ class Booking(models.Model):
 
     booking_date = models.DateField()
 
-    booking_time = models.TimeField(
-        editable=False,
-        null=True
-    )
+    booking_time = models.TimeField(null=True)
 
     duration = models.DurationField()
 
