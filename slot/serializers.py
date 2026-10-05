@@ -1,6 +1,7 @@
 
 from rest_framework import serializers
 from datetime import datetime
+from turf.models import Turf
 
 
 class BookingSerializer(serializers.Serializer):
@@ -19,7 +20,9 @@ class BookingSerializer(serializers.Serializer):
     
         return validated_data
 
-    turf = serializers.IntegerField()
+    turf = serializers.PrimaryKeyRelatedField(
+        queryset=Turf.objects.all()
+    )
 
     booking_date = serializers.DateField()
 

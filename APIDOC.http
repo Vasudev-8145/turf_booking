@@ -79,3 +79,22 @@ Content-Type: application/json
 ###
 GET http://127.0.0.1:8000/bookings/1/
 Accept: application/json
+
+# api call for updating booking details
+###
+POST http://127.0.0.1:8000/bookings/1/
+Content-Type: application/json
+
+{
+    "team_name": "fc barselona",
+    "phone": "598746123",
+    "turf": 1,
+    "booking_date": "2026-10-05",
+    "booking_time": "11:00:00",
+    "duration": "01:00:00"
+}
+
+# api call for deleting one booking details
+###
+DELETE http://127.0.0.1:8000/bookings/4/
+Accept: application/json

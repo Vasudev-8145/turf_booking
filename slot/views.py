@@ -54,3 +54,31 @@ class BookingRetrieveUpdateDeleteView(APIView):
         serializer_instance = BookingSerializer(qs)
 
         return Response(data=serializer_instance.data)
+
+    def post(self,request,pk=None):
+
+        form_data = request.data
+
+        serializer_instance = BookingSerializer(data=form_data)
+
+        if serializer_instance.is_valid():
+
+            cleaned_data = serializer_instance.validated_data
+
+            Booking.objects.filter(id=pk).update(**cleaned_data)
+
+            booking = Booking.objects.get(id=pk)
+
+            serializer_instance = BookingSerializer(booking)
+
+            return Response(data=serializer_instance.data)
+
+        else:
+
+            return Response(data=serializer_instance.errors)
+
+    def delete(self,request,pk=None):
+
+        Booking.objects.get(id=pk).delete()
+
+        return Response(data={"message":"deleted..."})
