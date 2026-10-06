@@ -98,3 +98,35 @@ Content-Type: application/json
 ###
 DELETE http://127.0.0.1:8000/bookings/4/
 Accept: application/json
+
+
+############ slot_v2 ########
+# api call for user authentictaion
+###
+POST http://127.0.0.1:8000/v2/booking/signup/
+Content-Type: application/json
+
+{
+    "username":"django",
+    "email":"django@gmail.com",
+    "password":"django123"
+}
+
+# api call for listing booking details
+###
+GET http://127.0.0.1:8000/v2/booking/slotv2/
+Accept: application/json
+
+# api call for creating booking details
+###
+POST http://127.0.0.1:8000/v2/booking/slotv2/
+Content-Type: application/json
+
+{
+    "team_name":"barca",
+    "phone":123456789,
+    "turf":1,
+    "booking_date":"2026-10-06",
+    "booking_time":"11:00:00",
+    "duration":"1:00:00"
+}

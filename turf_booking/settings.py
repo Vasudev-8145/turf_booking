@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'turf',
     'rest_framework',
     'slot',
+    'slot_v2',
 ]
 
 MIDDLEWARE = [
