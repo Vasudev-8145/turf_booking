@@ -15,6 +15,8 @@ class SignUpSerializer(serializers.ModelSerializer):
 
 class BookingV2Serializer(serializers.ModelSerializer):
 
+    turf = serializers.StringRelatedField()
+
     class Meta:
 
         model = Bookingv2

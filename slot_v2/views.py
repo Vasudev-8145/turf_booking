@@ -2,6 +2,9 @@ from django.shortcuts import render
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import ValidationError
+from rest_framework import authentication,permissions
+from rest_framework.generics import RetrieveAPIView,UpdateAPIView,DestroyAPIView
 
 from datetime import time,timedelta,datetime
 
@@ -36,6 +39,9 @@ class SignUpView(APIView):
 
 class BookingV2ListCreateView(APIView):
 
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
     def get(self,request):
 
         qs = Bookingv2.objects.all()
@@ -44,7 +50,7 @@ class BookingV2ListCreateView(APIView):
 
         return Response(data=serializer_instance.data)
 
-    def post(self,request):
+    def post(self, request):
 
         form_data = request.data
 
@@ -56,14 +62,37 @@ class BookingV2ListCreateView(APIView):
 
             turf_id = cleaned_data.get("turf")
             booking_date = cleaned_data.get("booking_date")
-                        
-            last_booking_object = Bookingv2.objects.filter(turf=turf_id,booking_date=booking_date).last()
+            booking_time = cleaned_data.get("booking_time")
+            duration = cleaned_data.get("duration")
 
-            time_duration = cleaned_data.get("duration")
-            booking_date_time = (datetime.combine(booking_date,last_booking_object.booking_time)+time_duration).time()
-            cleaned_data["booking_endtime"] = booking_date_time
+            booking_end_datetime = (
+                datetime.combine(booking_date, booking_time) + duration
+            )
+
+            booking_endtime = booking_end_datetime.time()
+
+            existing_bookings = Bookingv2.objects.filter(
+                turf=turf_id,
+                booking_date=booking_date
+            )
+
+            for booking in existing_bookings:
+
+                existing_start = booking.booking_time
+                existing_end = booking.booking_endtime
+
+                if booking_time < existing_end and booking_endtime > existing_start:
+
+                    raise ValidationError(
+                        {
+                            "booking_time": "This turf is already booked for the selected time."
+                        }
+                    )
+
+            cleaned_data["booking_endtime"] = booking_endtime
 
             qs = Bookingv2.objects.create(**cleaned_data)
+
             serializer_instance = BookingV2Serializer(qs)
 
             return Response(data=serializer_instance.data)
@@ -71,3 +100,11 @@ class BookingV2ListCreateView(APIView):
         else:
 
             return Response(data=serializer_instance.errors)
+
+class Bookinv2RetrieveUpdateDeleteView(RetrieveAPIView,UpdateAPIView,DestroyAPIView):
+
+    authentication_classes = [authentication.BasicAuthentication]
+    permission_classes = [permissions.IsAuthenticated]
+
+    serializer_class = BookingV2Serializer
+    queryset = Bookingv2.objects.all()

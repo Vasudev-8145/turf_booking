@@ -116,17 +116,48 @@ Content-Type: application/json
 ###
 GET http://127.0.0.1:8000/v2/booking/slotv2/
 Accept: application/json
+Authorization: Basic django:django123
 
 # api call for creating booking details
 ###
 POST http://127.0.0.1:8000/v2/booking/slotv2/
 Content-Type: application/json
+Authorization: Basic django:django123
 
 {
-    "team_name":"barca",
+    "team_name":"afa",
     "phone":123456789,
     "turf":1,
-    "booking_date":"2026-10-06",
+    "booking_date":"2026-10-07",
     "booking_time":"11:00:00",
     "duration":"1:00:00"
 }
+
+# api call for listing one booking details
+###
+GET http://127.0.0.1:8000/v2/booking/slotv2/6/
+Accept: application/json
+Authorization: Basic django:django123
+
+# api call for updating one booking detail
+###
+PUT http://127.0.0.1:8000/v2/booking/slotv2/6/
+Content-Type: application/json
+Authorization: Basic django:django123
+
+{
+  "id": 6,
+  "turf": "Old Trafford",
+  "team_name": "kerala blasters",
+  "phone": "123456789",
+  "booking_date": "2026-10-07",
+  "booking_time": "09:00:00",
+  "booking_endtime": "11:00:00",
+  "duration": "02:00:00"
+}
+
+# api call for deleting one booking detail
+###
+DELETE http://127.0.0.1:8000/v2/booking/slotv2/5/
+Accept: application/json
+Authorization: Basic django:django123
